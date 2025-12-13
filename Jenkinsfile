@@ -8,7 +8,6 @@ pipeline {
                 sh 'ls -la'
             }
         }
-
         stage('Read TXT') {
             steps {
                 script {
@@ -25,8 +24,14 @@ pipeline {
     }
 
     post {
-        success {
-            echo "Pipeline finished successfully"
+        always {
+            emailext(
+                to: 'anyone@example.com',   // any address; Mailtrap will capture it
+                subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """Build result: ${currentBuild.currentResult}
+Job: ${env.JOB_NAME}
+URL: ${env.BUILD_URL}"""
+            )
         }
     }
 }
