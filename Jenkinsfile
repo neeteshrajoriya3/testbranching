@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment{
+	ALL_EMAILS='neetesh.rajoriya3@gmail.com','neetesh.rajoriya3@gmail.com'
+    }
+
     stages {
         stage('Show Files') {
             steps {
@@ -25,13 +29,13 @@ pipeline {
 
     post {
         always {
-            emailext(
-                to: 'anyone@example.com',   // any address; Mailtrap will capture it
-                subject: "Build ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """Build result: ${currentBuild.currentResult}
-Job: ${env.JOB_NAME}
-URL: ${env.BUILD_URL}"""
-            )
+            mail to: "$(ALL_EMAILS)",
+                 subject:"BUILD ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+	    body: """\
+Job Name   : ${env.JOB_NAME}
+Build No  : ${env.BUILD_NUMBER}
+Status    : ${currentBuild.currentResult}
+Build URL : ${env.BUILD_URL}
         }
     }
 }
