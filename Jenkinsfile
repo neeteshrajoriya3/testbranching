@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     stages {
         stage('Show Files') {
             steps {
@@ -7,6 +8,7 @@ pipeline {
                 sh 'ls -la'
             }
         }
+
         stage('Read TXT') {
             steps {
                 script {
@@ -21,6 +23,7 @@ pipeline {
             }
         }
     }
+
     post {
         success {
             echo "Pipeline finished successfully"
