@@ -38,4 +38,3 @@ Status    : ${currentBuild.currentResult}
 Build URL : ${env.BUILD_URL}
         }
     }
-}
