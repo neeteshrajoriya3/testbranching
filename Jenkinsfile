@@ -29,7 +29,7 @@ pipeline {
 
     post {
         always {
-            mail to: "$(ALL_EMAILS)",
+            mail to: "${ALL_EMAILS}",
                  subject:"BUILD ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
 	    body: """\
 Job Name   : ${env.JOB_NAME}
