@@ -4,14 +4,8 @@ pipeline {
     stages {
         stage('Proof') {
             steps {
-                echo '🔥 Jenkinsfile is executing correctly 🔥'
+                echo 'JENKINSFILE IS EXECUTING'
             }
-        }
-    }
-
-    post {
-        always {
-            echo "Build completed with status: ${currentBuild.currentResult}"
         }
     }
 }
