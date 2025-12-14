@@ -2,10 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('PROOF_EXECUTION') {
+        stage('Proof') {
             steps {
-                echo '🔥 THIS JENKINSFILE IS EXECUTING 🔥'
+                echo '🔥 Jenkinsfile is executing correctly 🔥'
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Build completed with status: ${currentBuild.currentResult}"
         }
     }
 }
