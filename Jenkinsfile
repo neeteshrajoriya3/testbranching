@@ -1,3 +1,5 @@
+println "JENKINSFILE LOADED"
+
 pipeline {
     agent any
 
