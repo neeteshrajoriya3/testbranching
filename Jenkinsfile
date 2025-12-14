@@ -1,5 +1,3 @@
-println "JENKINSFILE LOADED"
-
 pipeline {
     agent any
 
@@ -18,11 +16,7 @@ pipeline {
         stage('Read TXT') {
             steps {
                 script {
-                    def files = sh(
-                        script: "ls *.txt || true",
-                        returnStdout: true
-                    ).trim()
-
+                    def files = sh(script: "ls *.txt || true", returnStdout: true).trim()
                     if (files) {
                         echo "TXT files found: ${files}"
                         sh "cat ${files}"
