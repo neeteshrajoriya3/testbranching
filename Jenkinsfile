@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ALL_EMAILS = 'neet.kumar3@gmail.com,mehul.raj233@gmail.com'
+        ALL_EMAILS = 'neetesh.rajoriya3@gmail.com,neetesh.rajoriya2@gmail.com'
     }
 
     stages {
