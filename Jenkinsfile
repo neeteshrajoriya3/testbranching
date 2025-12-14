@@ -2,32 +2,13 @@ pipeline {
     agent any
 
     environment {
-        ALL_EMAILS = 'neetesh.rajoriya3@gmail.com,neetesh.rajoriya2@gmail.com'
+        ALL_EMAILS = 'neet.kumar3@gmail.com,mehul.raj233@gmail.com'
     }
 
     stages {
-        stage('Show Files') {
+        stage('Sanity Check') {
             steps {
-                echo "Listing workspace files"
-                bat 'dir'
-            }
-        }
-
-        stage('Read TXT') {
-            steps {
-                script {
-                    def files = bat(
-                        script: "dir /b *.txt 2>nul",
-                        returnStdout: true
-                    ).trim()
-
-                    if (files) {
-                        echo "TXT files found: ${files}"
-                        bat "type ${files}"
-                    } else {
-                        echo "No txt files found"
-                    }
-                }
+                echo '✅ Jenkinsfile from GitHub is executing'
             }
         }
     }
