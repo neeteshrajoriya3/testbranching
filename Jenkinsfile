@@ -6,22 +6,36 @@ pipeline {
     }
 
     stages {
+
         stage('Show Files') {
             steps {
                 echo 'Listing workspace files'
-                sh 'ls -la'
+                bat '''
+                echo ===== Workspace Content =====
+                dir
+                '''
             }
         }
 
-        stage('Read TXT') {
+        stage('Read TXT Files') {
             steps {
                 script {
-                    def files = sh(script: "ls *.txt || true", returnStdout: true).trim()
+                    def files = bat(
+                        script: 'dir /b *.txt 2>nul',
+                        returnStdout: true
+                    ).trim()
+
                     if (files) {
-                        echo "TXT files found: ${files}"
-                        sh "cat ${files}"
+                        echo "TXT files found:"
+                        echo files
+                        bat """
+                        for %%f in (${files}) do (
+                            echo ===== %%f =====
+                            type %%f
+                        )
+                        """
                     } else {
-                        echo "No txt files found"
+                        echo 'No TXT files found'
                     }
                 }
             }
@@ -30,9 +44,11 @@ pipeline {
 
     post {
         always {
+            echo 'Sending email notification'
+
             mail to: env.ALL_EMAILS,
                  subject: "BUILD ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: """
+                 body: """\
 Job Name   : ${env.JOB_NAME}
 Build No  : ${env.BUILD_NUMBER}
 Status    : ${currentBuild.currentResult}
